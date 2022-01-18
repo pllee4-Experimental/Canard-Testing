@@ -19,8 +19,6 @@
 #include "canard.h"
 #include "socketcan.h"
 
-#define RESERVED_MEMORY_SIZE (1024 * 256 * (sizeof(void *)))
-
 std::mutex heap_mutex;
 
 void *MemoryAllocate(CanardInstance *ins, size_t amount) {
@@ -61,8 +59,6 @@ void Transmit(CanardInstance *inst) {
 }
 
 int main(int argc, char *argv[]) {
-  uint8_t mem[RESERVED_MEMORY_SIZE];
-
   uint8_t buffer[] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06};
   size_t buffer_size = 1024;
 

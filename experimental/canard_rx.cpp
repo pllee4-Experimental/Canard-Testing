@@ -19,10 +19,6 @@
 #include "canard.h"
 #include "socketcan.h"
 
-#define RESERVED_MEMORY_SIZE (1024 * 256 * (sizeof(void *)))
-
-std::mutex heap_mutex;
-
 void *MemoryAllocate(CanardInstance *ins, size_t amount) {
   return malloc(amount * (sizeof(uint8_t)));
 }
@@ -36,7 +32,7 @@ void CanardDecode(CanardTransfer *transfer) {
       std::cout << "Received data" << std::endl;
       uint8_t *data =
           static_cast<uint8_t *>(const_cast<void *>(transfer->payload));
-      for (uint8_t i = 0; i < 8; ++i) {
+      for (uint8_t i = 0; i < 6; ++i) {
         printf("Payload[%d]: %d\n", i, data[i]);
       }
       printf("\n");
